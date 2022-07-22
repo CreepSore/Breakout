@@ -1,0 +1,2 @@
+C:\dev\Git\C++\Breakout\Breakout\x64\Debug\Breakout.exe
+C:\dev\Git\C++\Breakout\Breakout\x64\Debug\Breakout.pdb

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Quelldateien\Breakout">
+      <UniqueIdentifier>{6b552af6-39c6-4d9f-9962-c9047baf8b0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Breakout">
+      <UniqueIdentifier>{c41f30ed-3280-4244-b698-fdcabf2b3f28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Breakout\interfaces">
+      <UniqueIdentifier>{513e122c-f2cd-4ea5-bc10-0b6764b1b675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Breakout\entities">
+      <UniqueIdentifier>{c6f8f900-cd37-48e5-bcba-27c7403c3054}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Breakout\entities">
+      <UniqueIdentifier>{26cf0015-020e-405d-9e1e-d4c84c5aa44d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Breakout\util">
+      <UniqueIdentifier>{408df440-c857-4db2-9ec0-1263bd8bb7f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Breakout\util">
+      <UniqueIdentifier>{bb78c439-caf8-4f0d-bae5-baed0bf9be3d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="lib\sfml\bin\openal32.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-audio-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-audio-d-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-graphics-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-graphics-d-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-network-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-network-d-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-system-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-system-d-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-window-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="lib\sfml\bin\sfml-window-d-2.dll">
+      <Filter>Ressourcendateien</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Breakout.cpp">
+      <Filter>Quelldateien\Breakout</Filter>
+    </ClCompile>
+    <ClCompile Include="ITickable.hpp">
+      <Filter>Headerdateien\Breakout\interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="EInfoDisplay.cpp">
+      <Filter>Quelldateien\Breakout\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EPipe.cpp">
+      <Filter>Quelldateien\Breakout\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EBall.cpp">
+      <Filter>Quelldateien\Breakout\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="EBlock.cpp">
+      <Filter>Quelldateien\Breakout\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="IEntity.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="BoundingBox.cpp">
+      <Filter>Quelldateien\Breakout\util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Breakout.hpp">
+      <Filter>Headerdateien\Breakout</Filter>
+    </ClInclude>
+    <ClInclude Include="IRenderable.hpp">
+      <Filter>Headerdateien\Breakout\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IEntity.hpp">
+      <Filter>Headerdateien\Breakout\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EInfoDisplay.hpp">
+      <Filter>Headerdateien\Breakout\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EBall.hpp">
+      <Filter>Headerdateien\Breakout\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EPipe.hpp">
+      <Filter>Headerdateien\Breakout\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EBlock.hpp">
+      <Filter>Headerdateien\Breakout\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingBox.hpp">
+      <Filter>Headerdateien\Breakout\util</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionResult.hpp">
+      <Filter>Headerdateien\Breakout\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

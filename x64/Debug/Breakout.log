@@ -1,0 +1,9 @@
+﻿  EBall.cpp
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(17,48): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(26,65): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(76,20): warning C4244: "=": Konvertierung von "float" in "int", möglicher Datenverlust
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(144,72): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(144,64): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(144,49): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+C:\dev\Git\C++\Breakout\Breakout\EBall.cpp(144,34): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+  Breakout.vcxproj -> C:\dev\Git\C++\Breakout\Breakout\x64\Debug\Breakout.exe
