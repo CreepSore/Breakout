@@ -1,4 +1,0 @@
-﻿  Application.cpp
-  Breakout.cpp
-  Code wird generiert...
-sfml-graphics-d.lib(sfml-graphics-d-2.dll) : fatal error LNK1112: Modul-Computertyp "x64" steht in Konflikt mit dem Zielcomputertyp "x86".
