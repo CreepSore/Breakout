@@ -92,11 +92,11 @@
     <ClCompile Include="EBlock.cpp">
       <Filter>Quelldateien\Breakout\entities</Filter>
     </ClCompile>
-    <ClCompile Include="IEntity.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="BoundingBox.cpp">
       <Filter>Quelldateien\Breakout\util</Filter>
+    </ClCompile>
+    <ClCompile Include="IEntity.cpp">
+      <Filter>Quelldateien\Breakout\entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

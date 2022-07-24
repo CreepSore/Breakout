@@ -6,6 +6,7 @@ class EPipe : public IEntity {
 public:
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
+    virtual BoundingBox getColliderbox() override;
 
     BoundingBox collider = BoundingBox(0, 0, 100, 10);
 

@@ -17,3 +17,7 @@ void EPipe::render(float delta, sf::RenderWindow& window) {
 void EPipe::tick() {
     this->posX = this->mouseX - (this->collider.width / 2);
 }
+
+BoundingBox EPipe::getColliderbox() {
+    return this->collider;
+}

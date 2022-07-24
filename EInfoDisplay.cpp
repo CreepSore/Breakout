@@ -31,3 +31,7 @@ void EInfoDisplay::render(float delta, sf::RenderWindow& window) {
 void EInfoDisplay::tick() {
 
 }
+
+BoundingBox EInfoDisplay::getColliderbox() {
+    return BoundingBox(0, 0, 0, 0);
+}

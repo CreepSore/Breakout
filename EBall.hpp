@@ -8,6 +8,7 @@ public:
 
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
+    virtual BoundingBox getColliderbox() override;
     void precomputeTick(float* cX, float* cY, float* cDir, CollisionResult* collision);
 
     BoundingBox collider = BoundingBox(0, 0, 0, 0);

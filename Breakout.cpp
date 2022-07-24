@@ -19,39 +19,20 @@ Breakout::Breakout() {
     this->eBall.isSticky = true;
     this->blocks = std::vector<EBlock*>();
 
-    EBlock* top = new EBlock();
-    top->posX = 0;
-    top->posY = 0;
-    top->collider.width = BO_ARENA_WIDTH;
-    top->collider.height = 5;
-    top->destroyable = false;
+    EBlock* top = new EBlock(0, 0, BO_ARENA_WIDTH, 5, false);
     this->blocks.push_back(top);
 
-    EBlock* left = new EBlock();
-    left->posX = 0;
-    left->posY = 0;
-    left->collider.width = 5;
-    left->collider.height = BO_ARENA_HEIGHT;
-    left->destroyable = false;
+    EBlock* left = new EBlock(0, 0, 5, BO_ARENA_HEIGHT, false);
     this->blocks.push_back(left);
 
-    EBlock* right = new EBlock();
-    right->posX = BO_ARENA_WIDTH - 5;
-    right->posY = 0;
-    right->collider.width = 5;
-    right->collider.height = BO_ARENA_HEIGHT;
-    right->destroyable = false;
+    EBlock* right = new EBlock(BO_ARENA_WIDTH - 5, 0, 5, BO_ARENA_HEIGHT, false);
     this->blocks.push_back(right);
 
     int blockWidth = BO_ARENA_WIDTH / 10;
     int blockHeight = 20;
     for (int y = 0; y < BO_BLOCK_Y_COUNT; y++) {
         for (int x = 0; x < BO_BLOCK_X_COUNT; x++) {
-            EBlock* block = new EBlock();
-            block->posX = x * blockWidth + (x * 2);
-            block->posY = y * blockHeight + 100 + (y * 5);
-            block->collider.width = blockWidth - 2;
-            block->collider.height = blockHeight;
+            EBlock* block = new EBlock(x * blockWidth + (x * 2), y * blockHeight + 100 + (y * 5), blockWidth - 2, blockHeight, true);
             this->blocks.push_back(block);
         }
     }

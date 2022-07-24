@@ -12,7 +12,7 @@ public:
     float posX = 0;
     float posY = 0;
 
-    BoundingBox collider;
+    virtual BoundingBox getColliderbox() = 0;
 
     CollisionResult checkCollisionWith(float x, float y, BoundingBox boundingBox);
     CollisionResult checkCollisionWith(IEntity* other);
