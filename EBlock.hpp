@@ -1,17 +1,22 @@
 #pragma once
 #include "./IEntity.hpp"
+#include "./Effect.hpp"
 
 class EBlock : public IEntity {
 public:
-    EBlock(float posX, float posY, float width, float height, bool destroyable = false);
+    EBlock(float posX, float posY, float width, float height);
     
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
-    virtual BoundingBox getColliderbox() override;
-    void onCollision();
+    virtual sf::RectangleShape getColliderbox() override;
+    void onCollision(IEntity* collider);
+    bool hasEffect(Effect effect);
+    void addEffect(Effect effect);
+    void removeEffect(Effect effect);
 
-    BoundingBox collider;
+    sf::RectangleShape collider;
 
     bool destroyed = false;
-    bool destroyable = true;
+private:
+    std::vector<Effect> effects;
 };

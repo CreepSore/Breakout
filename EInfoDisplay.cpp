@@ -32,6 +32,6 @@ void EInfoDisplay::tick() {
 
 }
 
-BoundingBox EInfoDisplay::getColliderbox() {
-    return BoundingBox(0, 0, 0, 0);
+sf::RectangleShape EInfoDisplay::getColliderbox() {
+    return sf::RectangleShape(sf::Vector2f(0,0));
 }

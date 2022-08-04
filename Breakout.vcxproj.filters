@@ -127,5 +127,11 @@
     <ClInclude Include="CollisionResult.hpp">
       <Filter>Headerdateien\Breakout\util</Filter>
     </ClInclude>
+    <ClInclude Include="EventArgs.hpp">
+      <Filter>Headerdateien\Breakout\util</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.hpp">
+      <Filter>Headerdateien\Breakout\util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

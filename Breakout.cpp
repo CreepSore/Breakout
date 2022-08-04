@@ -14,25 +14,29 @@ Breakout::Breakout() {
     this->defaultFont = sf::Font();
     this->defaultFont.loadFromFile("c:\\windows\\fonts\\arial.ttf");
     this->eInfoDisplay = EInfoDisplay();
-    this->ePipe = EPipe();
+    this->ePipe = EPipe(80.0f);
     this->eBall = EBall();
     this->eBall.isSticky = true;
     this->blocks = std::vector<EBlock*>();
 
-    EBlock* top = new EBlock(0, 0, BO_ARENA_WIDTH, 5, false);
+    EBlock* top = new EBlock(0, 0, BO_ARENA_WIDTH, 5);
     this->blocks.push_back(top);
 
-    EBlock* left = new EBlock(0, 0, 5, BO_ARENA_HEIGHT, false);
+    EBlock* left = new EBlock(0, 0, 5, BO_ARENA_HEIGHT);
     this->blocks.push_back(left);
 
-    EBlock* right = new EBlock(BO_ARENA_WIDTH - 5, 0, 5, BO_ARENA_HEIGHT, false);
+    EBlock* right = new EBlock(BO_ARENA_WIDTH - 5, 0, 5, BO_ARENA_HEIGHT);
     this->blocks.push_back(right);
+
+    EBlock* bottom = new EBlock(0, BO_ARENA_HEIGHT - 5, BO_ARENA_WIDTH, 5);
+    bottom->addEffect(Effect::DESPAWN);
 
     int blockWidth = BO_ARENA_WIDTH / 10;
     int blockHeight = 20;
     for (int y = 0; y < BO_BLOCK_Y_COUNT; y++) {
         for (int x = 0; x < BO_BLOCK_X_COUNT; x++) {
-            EBlock* block = new EBlock(x * blockWidth + (x * 2), y * blockHeight + 100 + (y * 5), blockWidth - 2, blockHeight, true);
+            EBlock* block = new EBlock(x * blockWidth + (x * 2), y * blockHeight + 100 + (y * 5), blockWidth - 2, blockHeight);
+            block->addEffect(Effect::DESTROYABLE);
             this->blocks.push_back(block);
         }
     }

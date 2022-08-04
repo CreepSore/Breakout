@@ -5,30 +5,18 @@
 class Breakout;
 
 EBall::EBall() {
+    this->collider = sf::RectangleShape();
     this->updateColliderBox();
 }
 
 void EBall::render(float delta, sf::RenderWindow& window)
 {
-    float iX;
-    float iY;
-    this->interpolate(&iX, &iY, delta, 1);
+    float iX = this->posX;
+    float iY = this->posY;
 
     sf::CircleShape body = sf::CircleShape(this->radius);
     body.setPosition(iX - (this->radius / 2), iY - (this->radius / 2));
 
-    if (this->isSticky) {
-        sf::VertexArray vertex = sf::VertexArray(sf::LineStrip);
-        vertex.append(sf::Vertex(sf::Vector2f(iX + (this->radius / 2), iY + (this->radius / 2)), sf::Color(255, 0, 0, 255)));
-        for (int i = 0; i < 25; i++) {
-            float interpolatedX = 0;
-            float interpolatedY = 0;
-            this->interpolate(&interpolatedX, &interpolatedY, i + 1, 0.1f, 10.0f);
-            vertex.append(sf::Vertex(sf::Vector2f(interpolatedX + (this->radius / 2), interpolatedY + (this->radius / 2)), sf::Color(255, 0, 0, 255)));
-        }
-
-        window.draw(vertex);
-    }
     window.draw(body);
 }
 
@@ -39,42 +27,39 @@ void EBall::tick()
 
     CollisionResult result = {};
     this->precomputeTick(&this->posX, &this->posY, &this->direction, &result);
-    if (result.hasCollided) {
-        if (result.type == PIPE) {
-            float deltaBallPipe = this->posX - ePipe.posX + this->getRadius();
-            this->direction = ((deltaBallPipe / (ePipe.getColliderbox().width + this->getRadius())) * 176) - 88;
-        }
-    }
 }
 
 void EBall::precomputeTick(float* cX, float* cY, float* cDir, CollisionResult* collision)
 {
     Breakout* game = Breakout::getInstance();
+    auto sizeBall = this->getColliderbox().getSize();
     EPipe ePipe = game->ePipe;
+    auto ePipeSize = ePipe.collider.getSize();
 
     if (this->isSticky) {
-        if (this->posX < ePipe.posX - this->getRadius()) this->posX = ePipe.posX - this->getRadius();
-        if (this->posX > ePipe.posX + ePipe.collider.width) this->posX = ePipe.posX + ePipe.collider.width;
-        this->posY = ePipe.posY - this->getRadius() - 10;
+        if (this->posX < ePipe.posX - this->radius) this->posX = ePipe.posX - this->radius;
+        if (this->posX > ePipe.posX + ePipeSize.x) this->posX = ePipe.posX + ePipeSize.x;
+        this->posY = ePipe.posY - (this->radius * 2);
 
-        float deltaBallPipe = this->posX - ePipe.posX + this->getRadius();
-        this->direction = ((deltaBallPipe / (ePipe.collider.width + this->getRadius())) * 176) - 88;
+        float deltaBallPipe = this->posX - ePipe.posX + this->radius;
+        this->direction = ((deltaBallPipe / (ePipeSize.x + this->radius)) * 176) - 88;
+        this->updateColliderBox();
         return;
     }
 
-    for (int i = 0; i < 100; i++) {
-        this->posX += sinf(this->direction * (M_PI / 180.0f)) * (this->speed * 0.01);
-        this->posY += (-(cosf(this->direction * (M_PI / 180.0f)))) * (this->speed * 0.01);
+    float steps = 20;
+    for (int i = 0; i < steps; i++) {
+        this->posX += sinf(this->direction * (M_PI / 180.0f)) * (this->speed * (1 / steps));
+        this->posY += (-(cosf(this->direction * (M_PI / 180.0f)))) * (this->speed * (1 / steps));
+        this->updateColliderBox();
 
         CollisionResult cRes = this->checkCollisionWith(&game->ePipe);
         if (cRes.hasCollided) {
-            this->posX -= sinf(this->direction * (M_PI / 180.0f)) * (this->speed * 0.01);
-            this->posY -= (-(cosf(this->direction * (M_PI / 180.0f)))) * (this->speed * 0.01);
-
-            collision->entity = this;
-            collision->target = &game->ePipe;
-            collision->hasCollided = true;
-            collision->type = PIPE;
+            this->posY = cRes.intersection.top - (this->radius * 2);
+            float deltaBallPipe = this->posX - ePipe.posX + this->radius;
+            this->direction = ((deltaBallPipe / (ePipe.getColliderbox().getSize().x + this->radius)) * 176) - 88;
+            this->posX += sinf(this->direction * (M_PI / 180.0f)) * (this->speed * (1 / steps));
+            this->posY += (-(cosf(this->direction * (M_PI / 180.0f)))) * (this->speed * (1 / steps));
             return;
         }
 
@@ -82,12 +67,29 @@ void EBall::precomputeTick(float* cX, float* cY, float* cDir, CollisionResult* c
             if (block->destroyed) continue;
             CollisionResult blockCollision = this->checkCollisionWith(block);
             if (blockCollision.hasCollided) {
-                block->onCollision();
+                block->onCollision(this);
+
+                auto sizeBlock = block->getColliderbox().getSize();
+                if (blockCollision.intersection.width > blockCollision.intersection.height) {
+                    if (this->posY + sizeBall.y > block->posY) {
+                        blockCollision.type = CollisionType::BOTTOM;
+                    }
+
+                    if (this->posY < block->posY + sizeBlock.y) {
+                        blockCollision.type = CollisionType::TOP;
+                    }
+                }
+                else {
+                    if (this->posX < block->posX + sizeBlock.x) {
+                        blockCollision.type = CollisionType::RIGHT;
+                    }
+
+                    if (this->posX + sizeBall.x > block->posX) {
+                        blockCollision.type = CollisionType::LEFT;
+                    }
+                }
+
                 this->onCollision(blockCollision);
-                collision->entity = this;
-                collision->target = block;
-                collision->hasCollided = true;
-                collision->type = blockCollision.type;
                 return;
             }
         }
@@ -145,7 +147,7 @@ void EBall::interpolate(float* outX, float* outY, float ticks, float tickstep, f
         CollisionResult cRes = IEntity::checkCollisionWith(iX, iY, this->collider, game->ePipe.posX, game->ePipe.posY, game->ePipe.collider);
         if (cRes.hasCollided) {
             float deltaBallPipe = iX - game->ePipe.posX + this->getRadius();
-            direction = ((deltaBallPipe / (this->collider.width + this->getRadius())) * 176) - 88;
+            direction = ((deltaBallPipe / (this->collider.getSize().x + this->getRadius())) * 176) - 88;
         }
     }
     *outX = iX;
@@ -155,11 +157,11 @@ void EBall::interpolate(float* outX, float* outY, float ticks, float tickstep, f
 float EBall::getDirectionChangeOnCollision(CollisionType collisionType, float baseDirection)
 {
     float result = baseDirection;
-    if (collisionType == RIGHT || collisionType == LEFT) {
+    if (collisionType == CollisionType::RIGHT || collisionType == CollisionType::LEFT) {
         result = -result;
     }
 
-    if (collisionType == TOP || collisionType == 10 || collisionType == BOTTOM) {
+    if (collisionType == CollisionType::TOP || (int)collisionType == 10 || collisionType == CollisionType::BOTTOM) {
         result = -result + 180;
     }
 
@@ -171,9 +173,16 @@ float EBall::getDirectionChangeOnCollision(CollisionType collisionType, float ba
 
 void EBall::updateColliderBox()
 {
-    this->collider = BoundingBox(-(radius / 2), -(radius / 2), radius, radius);
+    this->collider.setSize(sf::Vector2f(radius, radius));
+    this->collider.setPosition(sf::Vector2f(this->posX - (radius / 2), this->posY - (radius / 2)));
 }
 
-BoundingBox EBall::getColliderbox() {
+sf::RectangleShape EBall::getColliderbox() {
     return this->collider;
+}
+
+void EBall::onEvent(EventArgs args) {
+    if (args.eventName == "accelerate") {
+        this->speed *= 1.1;
+    }
 }

@@ -7,7 +7,7 @@ public:
     EInfoDisplay();
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
-    virtual BoundingBox getColliderbox() override;
+    virtual sf::RectangleShape getColliderbox() override;
 private:
     int fps = 0;
     int fpsCounter = 0;

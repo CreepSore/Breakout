@@ -21,15 +21,16 @@ int main() {
         }
 
         ULONGLONG currentTick = GetTickCount64();
-        float delta = currentTick - lastUpdate;
-        float renderDelta = delta / tickDelay;
-        if (delta > tickDelay) {
+        float delta = (currentTick - lastUpdate) / tickDelay;
+        float updateDelta = delta;
+        while (updateDelta > 1) {
             breakout->onTick();
             lastUpdate = currentTick;
-            renderDelta = 0;
+            updateDelta -= 1;
+            delta = updateDelta;
         }
         window.clear();
-        breakout->onRender(renderDelta, window);
+        breakout->onRender(delta, window);
         window.display();
     }
 

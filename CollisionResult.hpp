@@ -1,7 +1,7 @@
 #pragma once
 #include "./IEntity.hpp"
 
-enum CollisionType {
+enum class CollisionType {
     NONE = -1,
     TOP = 0,
     RIGHT = 1,
@@ -14,6 +14,7 @@ class IEntity;
 struct CollisionResult {
     IEntity* entity = nullptr;
     IEntity* target = nullptr;
+    sf::FloatRect intersection;
     bool hasCollided = false;
-    CollisionType type = NONE;
+    CollisionType type = CollisionType::NONE;
 };

@@ -4,12 +4,15 @@
 
 class EPipe : public IEntity {
 public:
+    EPipe(float width = 80);
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
-    virtual BoundingBox getColliderbox() override;
+    virtual sf::RectangleShape getColliderbox() override;
 
-    BoundingBox collider = BoundingBox(0, 0, 100, 10);
+    sf::RectangleShape collider;
 
     int mouseX;
     int mouseY;
+private:
+    float width;
 };

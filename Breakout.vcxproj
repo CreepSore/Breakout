@@ -261,8 +261,10 @@
     <ClInclude Include="CollisionResult.hpp" />
     <ClInclude Include="EBall.hpp" />
     <ClInclude Include="EBlock.hpp" />
+    <ClInclude Include="Effect.hpp" />
     <ClInclude Include="EInfoDisplay.hpp" />
     <ClInclude Include="EPipe.hpp" />
+    <ClInclude Include="EventArgs.hpp" />
     <ClInclude Include="IEntity.hpp" />
     <ClInclude Include="IRenderable.hpp" />
   </ItemGroup>
