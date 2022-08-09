@@ -15,6 +15,7 @@
 class Breakout {
 public:
     Breakout();
+    void initWorld();
     void onTick();
     void onRender(float delta, sf::RenderWindow& window);
     void onWindowEvent(sf::Event ev);
@@ -32,7 +33,7 @@ public:
 
     static Breakout* instance;
     static Breakout* getInstance();
+    sf::Font* defaultFont;
 private:
     std::default_random_engine randomEngine;
-    sf::Font defaultFont;
 };

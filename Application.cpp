@@ -9,6 +9,7 @@ float tickDelay = 1000 / 60;
 int main() {
     sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(800, 800), "The Game");
     Breakout* breakout = Breakout::getInstance();
+    breakout->initWorld();
     ULONGLONG lastUpdate = 0;
 
     while (window.isOpen()) {

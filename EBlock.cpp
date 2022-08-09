@@ -4,12 +4,19 @@
 EBlock::EBlock(float posX, float posY, float width, float height) {
     this->posX = posX;
     this->posY = posY;
+
     this->collider = sf::RectangleShape(sf::Vector2f(width, height));
     this->collider.setPosition(posX, posY);
+
     this->body = sf::RectangleShape(sf::Vector2f(width, height));
     this->body.setPosition(posX, posY);
+
+    this->text = sf::Text();
+    this->setText("");
+
     this->effects = std::vector<Effect>();
     this->color = sf::Color(255, 255, 255, 255);
+    this->textColor = sf::Color(0, 0, 0, 255);
 }
 
 void EBlock::render(float delta, sf::RenderWindow& window)
@@ -17,7 +24,9 @@ void EBlock::render(float delta, sf::RenderWindow& window)
     if (destroyed) return;
     auto size = this->collider.getSize();
     this->body.setFillColor(this->color);
+    this->text.setFillColor(this->textColor);
     window.draw(this->body);
+    window.draw(this->text);
 }
 
 void EBlock::tick()
@@ -37,7 +46,7 @@ void EBlock::onCollision(IEntity* collider)
         EBall* ball = new EBall();
         ball->posX = colliderBall->posX;
         ball->posY = colliderBall->posY;
-        ball->direction = colliderBall->direction + game->getNextRandom(-4, 4);
+        ball->direction = colliderBall->direction + game->getNextRandom(-10, 10);
         ball->speed = BO_DEFAULT_BALL_SPEED;
         game->spawnBall(ball);
     }
@@ -83,4 +92,14 @@ void EBlock::removeEffect(Effect effect) {
             this->effects.erase(this->effects.begin() + i);
         }
     }
+}
+
+void EBlock::setText(const std::string& text) {
+    auto mySize = this->collider.getSize();
+    auto font = Breakout::getInstance()->defaultFont;
+    this->text.setCharacterSize(mySize.y - 6);
+    this->text.setFont(*font);
+    this->text.setString(text);
+    auto textSize = this->text.getLocalBounds();
+    this->text.setPosition(this->posX + (mySize.x / 2.0f) - (textSize.width / 2.0f), this->posY + (mySize.y / 2.0f) - (textSize.height));
 }

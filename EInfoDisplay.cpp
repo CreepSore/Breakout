@@ -5,8 +5,6 @@
 
 EInfoDisplay::EInfoDisplay() {
     this->collider = sf::RectangleShape(sf::Vector2f(0, 0));
-    this->font = sf::Font();
-    this->font.loadFromFile("c:\\windows\\fonts\\arial.ttf");;
 }
 
 void EInfoDisplay::render(float delta, sf::RenderWindow& window) {

@@ -6,16 +6,19 @@
 Breakout* Breakout::instance = nullptr;
 
 Breakout::Breakout() {
-    this->defaultFont = sf::Font();
-    this->defaultFont.loadFromFile("c:\\windows\\fonts\\arial.ttf");
+    this->defaultFont = new sf::Font();
+    this->defaultFont->loadFromFile("c:\\windows\\fonts\\arial.ttf");
     this->eInfoDisplay = EInfoDisplay();
+    this->eInfoDisplay.font = *this->defaultFont;
     this->ePipe = EPipe(80.0f);
     this->eBall = new EBall();
     this->eBall->isSticky = true;
     this->blocks = std::vector<EBlock*>();
     this->additionalBalls = std::vector<EBall*>();
     this->ballDespawnQueue = std::vector<EBall*>();
+}
 
+void Breakout::initWorld() {
     int blockWidth = BO_ARENA_WIDTH / 10;
     int blockHeight = 20;
     for (int y = 0; y < BO_BLOCK_Y_COUNT; y++) {
@@ -23,15 +26,28 @@ Breakout::Breakout() {
             EBlock* block = new EBlock(x * blockWidth + (x * 2), y * blockHeight + 100 + (y * 5), blockWidth - 2, blockHeight);
             float hue = this->getNextRandom(0xFF * 0.25, 0xFF * 0.5);
             block->color = sf::Color(255, hue, hue, 255);
+            block->textColor = sf::Color(255, 255, 255, 255);
             block->addEffect(Effect::DESTROYABLE);
 
             float hasEffect = this->getNextRandom(0, 1);
             if (hasEffect > 0.5) {
                 float effectType = ceilf(this->getNextRandom(1, 4));
-                if (effectType == 1) block->addEffect(Effect::P_BALL_ACCELERATE);
-                if (effectType == 2) block->addEffect(Effect::P_PIPE_ENLARGE);
-                if (effectType == 3) block->addEffect(Effect::P_PIPE_SHORTEN);
-                if (effectType == 4) block->addEffect(Effect::P_BALL_SPAWN);
+                if (effectType == 1) {
+                    block->addEffect(Effect::P_BALL_ACCELERATE);
+                    block->setText("O >>");
+                }
+                if (effectType == 2) {
+                    block->addEffect(Effect::P_PIPE_ENLARGE);
+                    block->setText("___ +");
+                }
+                if (effectType == 3) {
+                    block->addEffect(Effect::P_PIPE_SHORTEN);
+                    block->setText("___ -");
+                }
+                if (effectType == 4) {
+                    block->addEffect(Effect::P_BALL_SPAWN);
+                    block->setText("x2");
+                }
             }
             this->blocks.push_back(block);
         }
@@ -137,7 +153,7 @@ void Breakout::onWindowEvent(sf::Event ev) {
 
 Breakout* Breakout::getInstance()
 {
-    Breakout::instance = Breakout::instance != nullptr ? Breakout::instance : new Breakout();
+    Breakout::instance = Breakout::instance != 0 ? Breakout::instance : new Breakout();
     return Breakout::instance;
 }
 

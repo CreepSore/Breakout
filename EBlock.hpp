@@ -13,10 +13,13 @@ public:
     bool hasEffect(Effect effect);
     void addEffect(Effect effect);
     void removeEffect(Effect effect);
+    void setText(const std::string& text);
 
     sf::RectangleShape body;
+    sf::Text text;
     sf::RectangleShape collider;
     sf::Color color;
+    sf::Color textColor;
 
     bool destroyed = false;
 private:
