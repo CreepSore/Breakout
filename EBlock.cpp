@@ -101,5 +101,5 @@ void EBlock::setText(const std::string& text) {
     this->text.setFont(*font);
     this->text.setString(text);
     auto textSize = this->text.getLocalBounds();
-    this->text.setPosition(this->posX + (mySize.x / 2.0f) - (textSize.width / 2.0f), this->posY + (mySize.y / 2.0f) - (textSize.height));
+    this->text.setPosition(ceilf(this->posX + (mySize.x / 2.0f) - (textSize.left + textSize.width / 2.0f)), ceilf(this->posY + (mySize.y / 2.0f) - (textSize.top + textSize.height / 2.0f)));
 }
