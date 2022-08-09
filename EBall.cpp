@@ -6,20 +6,12 @@ class Breakout;
 
 EBall::EBall() {
     this->collider = sf::RectangleShape();
+    this->body = sf::CircleShape(this->radius);
     this->updateColliderBox();
 }
 
 void EBall::render(float delta, sf::RenderWindow& window)
 {
-    float iX = this->posX;
-    float iY = this->posY;
-
-    sf::CircleShape body = sf::CircleShape(this->radius);
-    if (Breakout::getInstance()->eBall == this) {
-        body.setFillColor(sf::Color(255, 0, 0));
-    }
-    body.setPosition(iX - (this->radius / 2), iY - (this->radius / 2));
-
     window.draw(body);
 }
 
@@ -30,6 +22,7 @@ void EBall::tick()
 
     CollisionResult result = {};
     this->precomputeTick(&this->posX, &this->posY, &this->direction, &result);
+    body.setPosition(this->posX - (this->radius / 2), this->posY - (this->radius / 2));
 }
 
 void EBall::precomputeTick(float* cX, float* cY, float* cDir, CollisionResult* collision)
@@ -110,6 +103,8 @@ void EBall::setRadius(float radius)
 {
     this->radius = radius;
     this->updateColliderBox();
+    this->body.setRadius(this->radius);
+
     return;
 }
 

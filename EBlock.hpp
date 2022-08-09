@@ -14,6 +14,7 @@ public:
     void addEffect(Effect effect);
     void removeEffect(Effect effect);
 
+    sf::RectangleShape body;
     sf::RectangleShape collider;
     sf::Color color;
 

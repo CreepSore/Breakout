@@ -6,6 +6,8 @@ EBlock::EBlock(float posX, float posY, float width, float height) {
     this->posY = posY;
     this->collider = sf::RectangleShape(sf::Vector2f(width, height));
     this->collider.setPosition(posX, posY);
+    this->body = sf::RectangleShape(sf::Vector2f(width, height));
+    this->body.setPosition(posX, posY);
     this->effects = std::vector<Effect>();
     this->color = sf::Color(255, 255, 255, 255);
 }
@@ -14,10 +16,8 @@ void EBlock::render(float delta, sf::RenderWindow& window)
 {
     if (destroyed) return;
     auto size = this->collider.getSize();
-    sf::RectangleShape body = sf::RectangleShape(sf::Vector2f(size.x, size.y));
-    body.setPosition(this->posX, this->posY);
-    body.setFillColor(this->color);
-    window.draw(body);
+    this->body.setFillColor(this->color);
+    window.draw(this->body);
 }
 
 void EBlock::tick()

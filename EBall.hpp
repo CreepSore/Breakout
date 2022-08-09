@@ -13,6 +13,7 @@ public:
     void precomputeTick(float* cX, float* cY, float* cDir, CollisionResult* collision);
 
     sf::RectangleShape collider;
+    sf::CircleShape body;
 
     int getRadius();
     void setRadius(float radius);
