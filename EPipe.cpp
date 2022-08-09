@@ -1,8 +1,7 @@
 #include "EPipe.hpp"
 
 EPipe::EPipe(float width) {
-    this->width = width;
-    this->collider = sf::RectangleShape(sf::Vector2f(width, 10));
+    this->setWidth(width);
 }
 
 void EPipe::render(float delta, sf::RenderWindow& window) {
@@ -22,6 +21,15 @@ void EPipe::tick() {
     this->collider.setPosition(this->posX, this->posY);
 }
 
-sf::RectangleShape EPipe::getColliderbox() {
+float EPipe::getWidth() {
+    return this->width;
+}
+
+void EPipe::setWidth(float width) {
+    this->width = width;
+    this->collider = sf::RectangleShape(sf::Vector2f(width, 10));
+}
+
+sf::RectangleShape& EPipe::getColliderbox() {
     return this->collider;
 }

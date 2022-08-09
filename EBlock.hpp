@@ -8,13 +8,14 @@ public:
     
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
-    virtual sf::RectangleShape getColliderbox() override;
+    virtual sf::RectangleShape& getColliderbox() override;
     void onCollision(IEntity* collider);
     bool hasEffect(Effect effect);
     void addEffect(Effect effect);
     void removeEffect(Effect effect);
 
     sf::RectangleShape collider;
+    sf::Color color;
 
     bool destroyed = false;
 private:

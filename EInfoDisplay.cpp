@@ -4,6 +4,7 @@
 #include <sstream>
 
 EInfoDisplay::EInfoDisplay() {
+    this->collider = sf::RectangleShape(sf::Vector2f(0, 0));
     this->font = sf::Font();
     this->font.loadFromFile("c:\\windows\\fonts\\arial.ttf");;
 }
@@ -32,6 +33,6 @@ void EInfoDisplay::tick() {
 
 }
 
-sf::RectangleShape EInfoDisplay::getColliderbox() {
-    return sf::RectangleShape(sf::Vector2f(0,0));
+sf::RectangleShape& EInfoDisplay::getColliderbox() {
+    return this->collider;
 }

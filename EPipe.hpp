@@ -7,7 +7,10 @@ public:
     EPipe(float width = 80);
     virtual void render(float delta, sf::RenderWindow& window) override;
     virtual void tick() override;
-    virtual sf::RectangleShape getColliderbox() override;
+    virtual sf::RectangleShape& getColliderbox() override;
+
+    float getWidth();
+    void setWidth(float width);
 
     sf::RectangleShape collider;
 
