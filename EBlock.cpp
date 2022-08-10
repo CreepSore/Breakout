@@ -60,11 +60,11 @@ void EBlock::onCollision(IEntity* collider)
     }
 
     if (this->hasEffect(Effect::P_PIPE_ENLARGE)) {
-        game->ePipe.setWidth(game->ePipe.getWidth() * 1.1f);
+        game->ePipe->setWidth(game->ePipe->getWidth() * 1.1f);
     }
 
     if (this->hasEffect(Effect::P_PIPE_SHORTEN)) {
-        game->ePipe.setWidth(game->ePipe.getWidth() * 0.9f);
+        game->ePipe->setWidth(game->ePipe->getWidth() * 0.9f);
     }
 }
 

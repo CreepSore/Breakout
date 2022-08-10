@@ -10,7 +10,7 @@ Breakout::Breakout() {
     this->defaultFont->loadFromFile("c:\\windows\\fonts\\arial.ttf");
     this->eInfoDisplay = EInfoDisplay();
     this->eInfoDisplay.font = *this->defaultFont;
-    this->ePipe = EPipe(80.0f);
+    this->ePipe = new EPipe(80.0f);
     this->eBall = new EBall();
     this->eBall->isSticky = true;
     this->blocks = std::vector<EBlock*>();
@@ -69,7 +69,7 @@ void Breakout::initWorld() {
 
 void Breakout::onRender(float delta, sf::RenderWindow& window) {
     eInfoDisplay.render(delta, window);
-    ePipe.render(delta, window);
+    ePipe->render(delta, window);
     eBall->render(delta, window);
 
     for (EBlock* block : this->blocks) {
@@ -83,7 +83,7 @@ void Breakout::onRender(float delta, sf::RenderWindow& window) {
 
 void Breakout::onTick() {
     eInfoDisplay.tick();
-    ePipe.tick();
+    ePipe->tick();
     eBall->tick();
     
     for (EBall* ball : this->additionalBalls) {

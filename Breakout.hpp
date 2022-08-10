@@ -24,7 +24,7 @@ public:
     float getNextRandom(float min = 0.0f, float max = 1.0f);
 
     EInfoDisplay eInfoDisplay;
-    EPipe ePipe;
+    EPipe* ePipe;
     EBall* eBall;
     std::vector<EBlock*> blocks;
     std::vector<EBall*> additionalBalls;
