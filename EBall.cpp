@@ -5,7 +5,7 @@
 class Breakout;
 
 EBall::EBall() {
-    this->collider = sf::RectangleShape();
+    this->collider = sf::RectangleShape(sf::Vector2f(this->radius, this->radius));
     this->body = sf::CircleShape(this->radius);
     this->updateColliderBox();
 }
@@ -137,13 +137,13 @@ void EBall::interpolate(float* outX, float* outY, float ticks, float tickstep, f
         for (EBlock* block : game->blocks) {
             if (block->destroyed) continue;
 
-            CollisionResult blockCollision = IEntity::checkCollisionWith(iX, iY, this->collider, block->posX, block->posY, block->collider);
+            CollisionResult blockCollision = this->checkCollisionWith(block);
             if (blockCollision.hasCollided) {
                 direction = this->getDirectionChangeOnCollision(blockCollision.type, direction);
             }
         }
 
-        CollisionResult cRes = IEntity::checkCollisionWith(iX, iY, this->collider, game->ePipe->posX, game->ePipe->posY, game->ePipe->collider);
+        CollisionResult cRes = this->checkCollisionWith(game->ePipe);
         if (cRes.hasCollided) {
             float deltaBallPipe = iX - game->ePipe->posX + this->getRadius();
             direction = ((deltaBallPipe / (this->collider.getSize().x + this->getRadius())) * 176) - 88;

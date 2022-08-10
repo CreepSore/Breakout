@@ -16,8 +16,8 @@ public:
     virtual sf::RectangleShape& getColliderbox() = 0;
     virtual void onEvent(EventArgs args);
 
-    CollisionResult checkCollisionWith(float x, float y, sf::RectangleShape& boundingBox);
+    CollisionResult checkCollisionWith(sf::RectangleShape& boundingBox);
     CollisionResult checkCollisionWith(IEntity* other);
 
-    static CollisionResult checkCollisionWith(float entX, float entY, sf::RectangleShape& entBB, float otherX, float otherY, sf::RectangleShape& otherBB);
+    static CollisionResult checkCollisionWith(sf::RectangleShape& entBB, sf::RectangleShape& otherBB);
 };

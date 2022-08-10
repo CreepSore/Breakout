@@ -4,17 +4,17 @@ IEntity::IEntity() { }
 
 void IEntity::onEvent(EventArgs args) { }
 
-CollisionResult IEntity::checkCollisionWith(float x, float y, sf::RectangleShape& boundingBox)
+CollisionResult IEntity::checkCollisionWith(sf::RectangleShape& boundingBox)
 {
-    return IEntity::checkCollisionWith(this->posX, this->posY, this->getColliderbox(), x, y, boundingBox);
+    return IEntity::checkCollisionWith(this->getColliderbox(), boundingBox);
 }
 
 CollisionResult IEntity::checkCollisionWith(IEntity* other)
 {
-    return this->checkCollisionWith(other->posX, other->posY, other->getColliderbox());
+    return this->checkCollisionWith(other->getColliderbox());
 }
 
-CollisionResult IEntity::checkCollisionWith(float entX, float entY, sf::RectangleShape& entBB, float otherX, float otherY, sf::RectangleShape& otherBB)
+CollisionResult IEntity::checkCollisionWith(sf::RectangleShape& entBB, sf::RectangleShape& otherBB)
 {
     CollisionResult result;
     result.entity = nullptr;
