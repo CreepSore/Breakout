@@ -7,12 +7,18 @@ Breakout* Breakout::instance = nullptr;
 
 Breakout::Breakout() {
     this->defaultFont = new sf::Font();
-    this->defaultFont->loadFromFile("c:\\windows\\fonts\\arial.ttf");
-    this->eInfoDisplay = EInfoDisplay();
-    this->eInfoDisplay.font = *this->defaultFont;
+    if (!this->defaultFont->loadFromFile("c:\\windows\\fonts\\arial.ttf")) {
+        std::cout << "Failed to read font\n";
+    }
+
+    this->eInfoDisplay = new EInfoDisplay();
+    this->eInfoDisplay->font = *this->defaultFont;
+
     this->ePipe = new EPipe(80.0f);
+
     this->eBall = new EBall();
     this->eBall->isSticky = true;
+
     this->blocks = std::vector<EBlock*>();
     this->additionalBalls = std::vector<EBall*>();
     this->ballDespawnQueue = std::vector<EBall*>();
@@ -34,19 +40,19 @@ void Breakout::initWorld() {
                 float effectType = ceilf(this->getNextRandom(1, 4));
                 if (effectType == 1) {
                     block->addEffect(Effect::P_BALL_ACCELERATE);
-                    block->setText("O >>");
+                    //block->setText("O >>", *this->defaultFont);
                 }
                 if (effectType == 2) {
                     block->addEffect(Effect::P_PIPE_ENLARGE);
-                    block->setText("___ +");
+                    //block->setText("___ +", *this->defaultFont);
                 }
                 if (effectType == 3) {
                     block->addEffect(Effect::P_PIPE_SHORTEN);
-                    block->setText("___ -");
+                    //block->setText("___ -", *this->defaultFont);
                 }
                 if (effectType == 4) {
                     block->addEffect(Effect::P_BALL_SPAWN);
-                    block->setText("x2");
+                    //block->setText("x2", *this->defaultFont);
                 }
             }
             this->blocks.push_back(block);
@@ -68,7 +74,8 @@ void Breakout::initWorld() {
 }
 
 void Breakout::onRender(float delta, sf::RenderWindow& window) {
-    eInfoDisplay.render(delta, window);
+    eInfoDisplay->addLine(std::string("Balls: ").append(std::to_string(this->ballsLeft)));
+    eInfoDisplay->render(delta, window);
     ePipe->render(delta, window);
     eBall->render(delta, window);
 
@@ -82,7 +89,7 @@ void Breakout::onRender(float delta, sf::RenderWindow& window) {
 }
 
 void Breakout::onTick() {
-    eInfoDisplay.tick();
+    eInfoDisplay->tick();
     ePipe->tick();
     eBall->tick();
     
@@ -110,16 +117,14 @@ void Breakout::onTick() {
                 this->eBall = this->additionalBalls.back();
                 this->additionalBalls.pop_back();
             }
+
+            this->ballsLeft = this->ballsLeft - 1;
+            if (this->ballsLeft < 0) {
+                this->running = false;
+            }
         }
 
         for (int i = 0; i < this->additionalBalls.size(); i++) {
-            if (despawnedMainBall) {
-                delete this->eBall;
-                this->eBall = this->additionalBalls[i];
-                this->additionalBalls.erase(this->additionalBalls.begin() + i);
-                break;
-            }
-
             if (this->additionalBalls[i] == ball) {
                 EBall* currBall = this->additionalBalls[i];
                 this->additionalBalls.erase(this->additionalBalls.begin() + i);

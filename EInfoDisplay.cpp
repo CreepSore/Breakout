@@ -5,6 +5,7 @@
 
 EInfoDisplay::EInfoDisplay() {
     this->collider = sf::RectangleShape(sf::Vector2f(0, 0));
+    this->lines = std::vector<std::string>();
 }
 
 void EInfoDisplay::render(float delta, sf::RenderWindow& window) {
@@ -17,18 +18,32 @@ void EInfoDisplay::render(float delta, sf::RenderWindow& window) {
     }
 
     std::stringstream str;
-    std::string toDraw;
+    std::string toDrawFPS;
     str << "FPS: " << this->fps;
-    toDraw = str.str();
+    toDrawFPS = str.str();
     str.clear();
 
-    sf::Text renderText = sf::Text(sf::String(toDraw), this->font);
-    renderText.setPosition(2, 2);
-    window.draw(renderText);
+    this->lines.insert(this->lines.begin(), toDrawFPS);
+
+    int yOffset = 0;
+    for (int i = 0; i < this->lines.size(); i++) {
+        std::string toDraw = this->lines[i];
+        sf::Text renderText = sf::Text(sf::String(toDraw), this->font);
+        auto textBounds = renderText.getLocalBounds();
+        renderText.setPosition(2, 2 + yOffset);
+        yOffset = yOffset + textBounds.top + textBounds.height;
+        window.draw(renderText);
+    }
+
+    this->lines.clear();
 }
 
 void EInfoDisplay::tick() {
 
+}
+
+void EInfoDisplay::addLine(std::string line) {
+    this->lines.push_back(line);
 }
 
 sf::RectangleShape& EInfoDisplay::getColliderbox() {

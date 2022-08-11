@@ -22,8 +22,11 @@ public:
     void spawnBall(EBall* ball);
     void despawnBall(EBall* ball);
     float getNextRandom(float min = 0.0f, float max = 1.0f);
+    int ballsLeft = 2;
+    bool running = true;
 
-    EInfoDisplay eInfoDisplay;
+
+    EInfoDisplay* eInfoDisplay;
     EPipe* ePipe;
     EBall* eBall;
     std::vector<EBlock*> blocks;

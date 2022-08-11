@@ -10,9 +10,9 @@ int main() {
     sf::RenderWindow window = sf::RenderWindow(sf::VideoMode(800, 800), "The Game");
     Breakout* breakout = Breakout::getInstance();
     breakout->initWorld();
-    ULONGLONG lastUpdate = 0;
+    ULONGLONG lastUpdate = GetTickCount64();
 
-    while (window.isOpen()) {
+    while (window.isOpen() && breakout->running) {
         sf::Event ev;
         while (window.pollEvent(ev)) {
             breakout->onWindowEvent(ev);

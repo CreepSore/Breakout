@@ -13,7 +13,7 @@ public:
     bool hasEffect(Effect effect);
     void addEffect(Effect effect);
     void removeEffect(Effect effect);
-    void setText(const std::string& text);
+    void setText(const std::string& text, const sf::Font font);
 
     sf::RectangleShape body;
     sf::Text text;
@@ -23,5 +23,6 @@ public:
 
     bool destroyed = false;
 private:
+    bool hasText = false;
     std::vector<Effect> effects;
 };

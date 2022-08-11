@@ -54,8 +54,6 @@ void EBall::precomputeTick(float* cX, float* cY, float* cDir, CollisionResult* c
                 this->posY = cRes.intersection.top - (this->radius * 2);
                 float deltaBallPipe = this->posX - ePipe->posX + this->radius;
                 this->direction = ((deltaBallPipe / (ePipe->getColliderbox().getSize().x + this->radius)) * 176) - 88;
-                this->posX += sinf(this->direction * (M_PI / 180.0f)) * (this->speed * (1 / steps));
-                this->posY += (-(cosf(this->direction * (M_PI / 180.0f)))) * (this->speed * (1 / steps));
                 return;
             }
         }

@@ -11,9 +11,6 @@ EBlock::EBlock(float posX, float posY, float width, float height) {
     this->body = sf::RectangleShape(sf::Vector2f(width, height));
     this->body.setPosition(posX, posY);
 
-    this->text = sf::Text();
-    this->setText("");
-
     this->effects = std::vector<Effect>();
     this->color = sf::Color(255, 255, 255, 255);
     this->textColor = sf::Color(0, 0, 0, 255);
@@ -24,9 +21,12 @@ void EBlock::render(float delta, sf::RenderWindow& window)
     if (destroyed) return;
     auto size = this->collider.getSize();
     this->body.setFillColor(this->color);
-    this->text.setFillColor(this->textColor);
     window.draw(this->body);
-    window.draw(this->text);
+    
+    if (this->hasText) {
+        this->text.setFillColor(this->textColor);
+        window.draw(this->text);
+    }
 }
 
 void EBlock::tick()
@@ -94,12 +94,11 @@ void EBlock::removeEffect(Effect effect) {
     }
 }
 
-void EBlock::setText(const std::string& text) {
+void EBlock::setText(const std::string& text, const sf::Font font) {
+    this->hasText = true;
     auto mySize = this->collider.getSize();
-    auto font = Breakout::getInstance()->defaultFont;
+    this->text = sf::Text(text, font);
     this->text.setCharacterSize(mySize.y - 6);
-    this->text.setFont(*font);
-    this->text.setString(text);
     auto textSize = this->text.getLocalBounds();
     this->text.setPosition(ceilf(this->posX + (mySize.x / 2.0f) - (textSize.left + textSize.width / 2.0f)), ceilf(this->posY + (mySize.y / 2.0f) - (textSize.top + textSize.height / 2.0f)));
 }
